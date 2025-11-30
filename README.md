@@ -1,8 +1,9 @@
+---
+---
+
 # アプリケーション名
 
-## FleaMarket
-
-Laravel × Stripe × Docker で構築したフリマアプリ（EC基礎を一通り実装）
+coachtechフリマ
 
 ---
 
@@ -11,12 +12,19 @@ Laravel × Stripe × Docker で構築したフリマアプリ（EC基礎を一�
 以下の機能を実装したフリマアプリです
 
 - ユーザー登録
+
 - メール認証
+
 - マイページ（出品/購入一覧表示）
+
 - 商品一覧・検索・詳細表示
+
 - 出品/購入機能
+
 - stripe決済（コンビニ/クレカ払い）
+
 - お気に入り（いいね）機能
+
 - コメント機能
 
 ---
@@ -26,56 +34,145 @@ Laravel × Stripe × Docker で構築したフリマアプリ（EC基礎を一�
 ### 1. Docker ビルド
 
 ```bash
-git clone git@github.com:e-kasai/flea_market.git         # SSHの場合
-git clone https://github.com/e-kasai/flea_market.git     # HTTPSの場合
+
+# git clone (プロジェクトをcloneしたいディレクトリから実行)
+
+git clone git@github.com:e-kasai/flea_market.git         # SSHの場合はこちら
+
+git clone https://github.com/e-kasai/flea_market.git     # HTTPSの場合はこちら
+
+
 
 # Docker立ち上げ
+
 cd flea_market
+
 docker compose up -d --build
+
 ```
 
-### 2. Laravelセットアップ
+### 2. Laravel 環境構築
 
 ```bash
+
 docker compose exec php bash
+
 composer install
+
 ```
 
-### 3. 環境変数設定（.env 作成）
+### 3. 環境変数設定
+
+- DB設定とMailHog設定は今回はローカルのみの為、既に入力済みです。
+- APP_KEYとStripeキーは秘密情報にあたる為、リポジトリには含めていません。
+
+  作成をお願い致します。
 
 ```bash
-cp .env.example .env
-php artisan key:generate
+
+# phpコンテナ内で引き続き実行
+
+cp .env.example .env             # .env.example` をコピーして `.env` にリネーム
+php artisan key:generate       # APP_KEYの作成
+
 ```
 
-### 4. Stripe 設定（必須）
+- Stripe設定
 
-Stripe Dashboard（テストモード）からキーを取得し `.env` に追加してください。
+  [Stripe Dashboard](https://dashboard.stripe.com/test/apikeys) にログインし、「公開可能キー」と「シークレットキー」をコピーし.envに追記してください。
 
 ```php
-STRIPE_KEY=       # pkより始まる各自の公開可能キー
-STRIPE_SECRET=    # skより始まる各自のシークレットキー
+
+# .envファイルを編集
+
+STRIPE_KEY=       # pkより始まる各自の公開可能キー
+STRIPE_SECRET=    # skより始まる各自のシークレットキー
+
 ```
 
-### 5. ストレージリンク（画像保存用）
+### 4. シンボリックリンク追加
 
 ```bash
-docker compose exec php php artisan storage:link
+
+docker compose exec php bash  # phpコンテナから抜けた場合は再度入る
+
+php artisan storage:link
+
 ```
 
-### 6. マイグレーション、シーディング
+### 5. マイグレーション、シーディングの実行
 
 ```bash
-docker compose exec php php artisan migrate
-docker compose exec php php artisan db:seed
+
+# 引き続きphpコンテナ内で実行
+
+php artisan migrate
+php artisan db:seed
+
 ```
 
-### 7. テスト実行
+### 6. テストの設定
 
 ```bash
-docker compose exec php bash
-php artisan test
+
+docker compose exec php bash              # phpコンテナに入る
+cp .env.testing.example .env.testing      # .env.testing.exampleをコピーして.env.testingを作成
+
+
+
+php artisan key:generate --env=testing    # テスト用のアプリケーションキーを生成（空欄にしてあるため）
+php artisan config:clear                  # 設定キャッシュをクリア
+
+exit
+
+
+
+docker compose exec mysql bash           # mysqlコンテナに入る
+mysql -u root -p
+root                                     # password = rootと入力
+
+CREATE DATABASE app_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;   # app_test DBを作成
+EXIT;
+EXIT;
+
+docker compose exec php bash                    # phpコンテナに入る
+php artisan migrate:fresh --seed --env=testing  # テスト用DBのマイグレーション
+
+
+
 ```
+
+**補足**
+
+- .env.testing.exampleに、Stripeダミーキーを事前にいれてあります。
+
+- **.env.testingにStripeキーの実際の値を設定する必要はありません。**
+
+- テスト一括実行時は以下のコマンドをご使用ください。
+
+```bash
+
+  docker compose exec php bash
+
+  php artisan test
+
+```
+
+### 7. コード整形（任意）
+
+- 本プロジェクトは Prettier を利用しています。
+
+- 必須ではありませんが、次のコマンドで同じ整形ルールを適用できます。
+
+```bash
+
+npm install
+
+npx prettier --write .
+
+```
+
+**環境構築は以上です。**
 
 ---
 
@@ -83,23 +180,45 @@ php artisan test
 
 ### 1. 環境をクリーンに戻す必要が出たとき
 
+- **DB をまっさらな状態** へ戻したい場合は下記コマンドを実行してください。
+
+  `db:seed` のみ再実行すると `insert` 方式のため重複レコードが発生します。
+
 ```bash
+
+# phpコンテナ内から実行
+
 docker compose exec php bash
+
 php artisan migrate:fresh --seed
+
 ```
+
+### 2. arm環境用の設定について
+
+M1/M2 Mac など arm環境での互換性を考慮し、 主に MySQL 用に `platform: linux/x86_64` を指定しています。
+
+必須ではありませんが、念のためMySQL以外のサービスにも指定しています。
 
 ---
 
 # 使用技術
 
 - Laravel 8.83.8
+
 - PHP 8.1.33
+
 - MySQL 8.0.26
+
 - Docker/docker-compose
+
 - MailHog v1.0.1
+
 - Stripe
+
 - JavaScript (ブラウザ実行)
-- Node.js / npm（ビルド・整形ツール）
+
+- Node.js (Prettier 用)
 
 ---
 
@@ -112,25 +231,36 @@ php artisan migrate:fresh --seed
 # URL
 
 - 開発環境：http://localhost/
+
 - phpMyAdmin：http://localhost:8080/
 
 ---
 
 ## 開発用ログイン情報
 
-Seeder により以下の10ユーザーが自動作成されます。
-※以下は開発用のダミーアカウントであり、本番環境とは無関係です。
+## 開発用ログイン情報
 
-- 管理者ユーザー （メール認証済）
-  - メール: admin_user@example.com
+Seeder により以下の4ユーザー(メール認証済み）が自動作成されます。
 
-- 一般ユーザー（メール認証済）
-  - メール: general_user@example.com
+#### 管理者ユーザー
 
-- ユーザー（メール未認証）
-  - メール: userx@example.com（x = 3〜10）
+- メール: admin_user@example.com
+- パスワード: password
 
-パスワードは全て"password"です。
+#### ユーザーA（CO01～CO05を出品したユーザー）
+
+- メール: userA@example.com
+- パスワード: password
+
+#### ユーザーB（CO06～CO10を出品したユーザー）
+
+- メール: userB@example.com
+- パスワード: password
+
+#### ユーザーC（出品なしユーザー）
+
+- メール: userC@example.com
+- パスワード: password
 
 ---
 
@@ -138,56 +268,136 @@ Seeder により以下の10ユーザーが自動作成されます。
 
 ## 1. Stripe決済
 
-Stripe Checkout を利用し、クレジットカード決済・コンビニ決済に対応しています。<br>
-開発環境では Webhook を使用せず、購入確定を簡易フローで処理する構成としています。<br>
-テストカード番号（4242 4242 4242 4242）で動作確認できます。
+本アプリでは Stripe Checkout を利用し、クレジットカードおよびコンビニ決済を実装しています。
 
----
+通常、コンビニ決済などの「非即時決済」では StripeのWebhookを受け取り
 
-## 2. メール認証
+入金確定を待ってから購入を確定させるのが正しい実装です。
 
-Fortify の標準仕様に基づき、メール認証を必須としています。<br>
-Seeder で作成されるユーザーは開発用のため、メール認証済みとして登録されます。
+ただし今回の模擬案件では実際の入金処理は不要なことから、Webhookを省略しています。
+
+#### 購入確定タイミング
+
+- コンビニ払い
+
+  - 購入ボタン押下で即 SOLD/DB確定
+
+  - その後 Stripe の案内画面へ遷移（Webhook 未使用の簡易実装）
+
+  - 戻り時のフラッシュは出さない想定
+
+  - "←"より戻り、ヘッダーロゴからトップページへ移動するとSOLD表示
+
+- クレカ払い
+
+  - Stripe で決済 → `payment_status=paid` を確認してから SOLD/DB確定
+
+  - 商品一覧ページにリダイレクトされフラッシュメッセージとSOLDが表示される
+
+#### ダミーカード情報
+
+クレジットカード払いの場合は以下のダミー情報を使用してください。
+
+- カード番号：4242 4242 4242 4242
+
+- 有効期限：12/34
+
+- セキュリティコード：123
+
+- 名前やメールアドレス：任意のもの
 
 ---
 
 ## 3. レスポンシブ対応の基準設定
 
-最新スマートフォンの画面幅を基準にし、スマホ・タブレット・PC の3段階でレイアウトを最適化しています。
+将来的な保守性を考慮し最新スマホ幅(iphone16等)を基準に最小サイズを設定しています
 
 ---
 
 ## 4. アップロードサイズ制限
 
-商品画像アップロードに対応するため、Nginx / PHP のアップロード上限を 6MB に統一しています。
+本アプリでは商品画像などのアップロードを想定しているため、
+
+Nginx / PHP のアップロードサイズ制限を 6MB に統一しています(validationの５MB＋１MBバッファ)
+
+| チェック項目                  | コマンド / ファイル | 設定値 |
+
+| ----------------------------- | ------------------- | ------ |
+
+| Nginx の client_max_body_size | nginx.conf          | 6 MB   |
+
+| PHP の upload_max_filesize    | php.ini             | 6 MB   |
+
+| PHP の post_max_size          | php.ini             | 6 MB   |
 
 ---
 
-## 5. 購入処理の責務分離（Serviceクラス）
+## 5. 可読性向上 (Serviceクラスの使用)
 
-Stripe 決済処理や購入確定処理は Service クラスに分離し、<br>
-コントローラーはフロー制御に専念する構成としています。<br>
-役割を分離することで保守性と可読性を向上しています。
+- PurchaseController はフロー制御に専念させるため、
+
+  Stripe 決済やトランザクション処理などのビジネスロジックは Service クラスに分離することで200行未満を実現しています。
+
+- `App\Services\PaymentService`
+
+  - Stripe API との通信を担当
+
+  - Checkout セッションの作成、決済完了の取得など
+
+- `App\Services\TransactionService`
+
+  - DB への購入情報保存を担当
+
+  - アイテムをロックし、購入済みに更新／トランザクションを記録する処理
 
 ---
 
 ## 6. セキュリティ設計
 
-購入者／出品者のIDは不正更新を防ぐため `fillable` に含めず、<br>
-コントローラー側で明示的に割り当てる設計としています。
+セキュリティ観点により、`buyer_id`と`seller_id`をfillableから除外しています
 
 ---
 
 ## 7. マイリスト機能の挙動
 
-ログイン状態とメール認証状態に応じて、<br>
-「おすすめ／マイリスト」の表示内容を切り替えています。<br>
-未認証ユーザーにはマイリストを非表示とすることで要件を満たしています。
+トップページ (`/`) では「おすすめ」と「マイリスト」をタブで切り替えて表示しています。
+
+- **おすすめタブ**
+
+  - ゲスト（未ログインユーザー）でも閲覧可
+
+- **マイリストタブ**
+
+  - ゲストの場合：「ログインが必要です」と表示
+
+  - ログイン済みだがメール未認証の場合：「メール認証が必要です」と表示
+
+  - ログイン済みかつ認証済みの場合のみ、いいねした商品一覧が表示
+
+これにより、要件にある「未認証の場合マイリストは表示されない」を満たしています。
 
 ---
 
-## 8. ルート設計（ルートモデルバインディング）
+## 8. 新規登録とメール認証の設計について
 
-Laravel のルートモデルバインディングを使用し、<br>
-ルートパラメータを `{item}` に統一しています。<br>
-`Item $item` を自動解決できるため、より安全で簡潔な実装になります。
+要件には「新規会員登録後にメール認証をしないでログインを試みた場合は、メール認証誘導画面へ遷移する」とあります。
+本実装では Fortify の標準仕様に従い、登録完了時に自動的にログインされます。
+
+そのため「登録直後は未ログイン」という状態はありませんが、
+メール未認証ユーザーが"メール認証が必要なページ"にアクセスすると
+
+`verified` ミドルウェアにより `/email/verify`（認証誘導画面）へリダイレクトされます。
+
+これにより要件にある「未認証時はメール認証誘導画面に遷移する」を満たしています。
+
+---
+
+## 9. 一部ルートの変更について
+
+本実装では Laravel のルートモデルバインディングを利用するため、
+
+パラメータ名を `{item_id}` ではなく `{item}` としています。
+
+これにより `Item $item` をコントローラーの引数として受け取り、自動で存在確認や404ハンドリングが行われます。
+
+（Laravelの標準的な書き方であり、find()不要で安全に実装できるため、本案件でも採用しました）
