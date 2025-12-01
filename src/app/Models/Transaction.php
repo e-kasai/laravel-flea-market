@@ -35,4 +35,10 @@ class Transaction extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    // この取引に紐づく全メッセージ
+    public function messages()
+    {
+        return $this->hasMany(TransactionMessage::class);
+    }
 }
