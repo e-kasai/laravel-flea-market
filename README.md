@@ -9,23 +9,17 @@ coachtechフリマ
 
 # 概要
 
-以下の機能を実装したフリマアプリです
-
+以下の機能を実装したフリマアプリです<br>
 - ユーザー登録
-
 - メール認証
-
 - マイページ（出品/購入一覧表示）
-
 - 商品一覧・検索・詳細表示
-
 - 出品/購入機能
-
 - stripe決済（コンビニ/クレカ払い）
-
 - お気に入り（いいね）機能
-
 - コメント機能
+- ユーザー評価
+- 取引チャット
 
 ---
 
@@ -37,10 +31,8 @@ coachtechフリマ
 
 # git clone (プロジェクトをcloneしたいディレクトリから実行)
 
-git clone git@github.com:e-kasai/flea_market.git         # SSHの場合はこちら
-
-git clone https://github.com/e-kasai/flea_market.git     # HTTPSの場合はこちら
-
+git clone git@github.com:e-kasai/flea_market.git         # SSHの場合
+git clone https://github.com/e-kasai/flea_market.git     # HTTPSの場合
 
 
 # Docker立ち上げ
@@ -51,7 +43,7 @@ docker compose up -d --build
 
 ```
 
-### 2. Laravel 環境構築
+### 2. Laravelパッケージインストール
 
 ```bash
 
@@ -72,7 +64,7 @@ composer install
 
 # phpコンテナ内で引き続き実行
 
-cp .env.example .env             # .env.example` をコピーして `.env` にリネーム
+cp .env.example .env           # .env.example` をコピーして `.env` にリネーム
 php artisan key:generate       # APP_KEYの作成
 
 ```
