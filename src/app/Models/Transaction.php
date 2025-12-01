@@ -41,4 +41,10 @@ class Transaction extends Model
     {
         return $this->hasMany(TransactionMessage::class);
     }
+
+    // １取引に対する評価一覧
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }
