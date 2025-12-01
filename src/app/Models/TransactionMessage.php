@@ -16,11 +16,13 @@ class TransactionMessage extends Model
         'message',
     ];
 
+    //メッセージは1件の取引（Transaction）に属する
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
     }
 
+    //メッセージは1人のユーザーに属する
     public function user()
     {
         return $this->belongsTo(User::class);
