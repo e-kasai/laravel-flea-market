@@ -27,12 +27,15 @@ class ProfileController extends Controller
         $purchasedItems = $transactions->pluck('item')->filter();
 
         //取引中商品
-        $wipItems = $user->transactions()
+        $wipTransactions = Transaction::where(function ($query) use ($user) {
+            $query->where('buyer_id', $user->id)
+                ->orWhere('seller_id', $user->id);
+        })
             ->where('status', Transaction::STATUS_WIP)
             ->with('item')
-            ->get()
-            ->pluck('item')
-            ->filter();
+            ->get();
+
+        $wipItems = $wipTransactions->pluck('item')->filter();
 
         return view('profile', compact('profile', 'user', 'items', 'purchasedItems', 'wipItems'));
     }

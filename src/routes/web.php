@@ -29,6 +29,7 @@ Route::prefix('mypage')
         Route::patch('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     });
 
+
 //出品
 Route::prefix('sell')
     ->middleware(['auth', 'verified'])
@@ -97,3 +98,5 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', '認証メールを再送しました。');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
