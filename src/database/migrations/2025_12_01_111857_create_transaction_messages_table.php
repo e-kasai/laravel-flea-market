@@ -16,7 +16,9 @@ class CreateTransactionMessagesTable extends Migration
             $table->unsignedBigInteger('user_id')->index();
             // 受信者
             $table->unsignedBigInteger('to_user_id')->index();
-            $table->string('message', 400);
+
+            $table->string('body', 400);
+            $table->string('image_path')->nullable();
             // 未読フラグ
             $table->boolean('is_read')->default(false);
             $table->timestamps();
