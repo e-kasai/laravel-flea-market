@@ -28,15 +28,10 @@
     <nav class="tabs">
         @php
             $activeTab = request("page", "sell");
-            // $tabs = [
-            //     ["label" => "出品した商品", "href" => route("profile.show", ["page" => "sell"]), "active" => $activeTab === "sell" ? "is-active" : ""],
-            //     ["label" => "購入した商品", "href" => route("profile.show", ["page" => "buy"]), "active" => $activeTab === "buy"],
-            // ];
-
             $tabs = [
                 ["label" => "出品した商品", "href" => route("profile.show", ["page" => "sell"]), "active" => $activeTab === "sell" ? "is-active" : ""],
                 ["label" => "購入した商品", "href" => route("profile.show", ["page" => "buy"]), "active" => $activeTab === "buy"],
-                ["label" => "取引中の商品", "href" => route("profile.show", ["page" => "wip"]), "active" => $activeTab === "wip"],
+                ["label" => "取引中の商品", "href" => route("profile.show", ["page" => "wip"]), "active" => $activeTab === "wip", "badge" => $totalUnread],
             ];
         @endphp
 
@@ -60,7 +55,7 @@
     {{-- 取引中一覧（共通グリッド） --}}
     @if ($activeTab === "wip")
         <div class="tabs__content">
-            <x-grid.item :items="$wipItems" />
+            <x-grid.item :items="$wipItems" linkRoute="messages.show" />
         </div>
     @endif
 @endsection
