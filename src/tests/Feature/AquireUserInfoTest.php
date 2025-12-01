@@ -46,7 +46,7 @@ class AquireUserInfoTest extends TestCase
         $transaction->item_id              = $purchasedItem->id;
         $transaction->buyer_id             = $user->id;
         $transaction->seller_id            = $purchasedItem->seller_id;
-        $transaction->status              = 1;
+        $transaction->status               = 1;
         $transaction->payment_method       = 1;
         $transaction->purchase_price       = 1000;
         $transaction->shipping_postal_code = $user->profile->postal_code;
