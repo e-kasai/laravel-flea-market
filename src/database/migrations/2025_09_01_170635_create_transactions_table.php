@@ -16,9 +16,11 @@ class CreateTransactionsTable extends Migration
                 ->unique()
                 ->onDelete('cascade');
 
-            $table->foreignId('buyer_id')
-                ->constrained('users')
-                ->onDelete('cascade');
+            $table->unsignedBigInteger('buyer_id')->index();
+
+            $table->unsignedBigInteger('seller_id')->index();
+
+            $table->tinyInteger('status'); //1=取引中, 2=完了
 
             $table->tinyInteger('payment_method');
             $table->unsignedInteger('purchase_price');
