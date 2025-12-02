@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\TransactionMessage;
+use App\Http\Requests\TransactionMessageRequest;
+
 
 class TransactionMessageController extends Controller
 {
@@ -58,5 +60,35 @@ class TransactionMessageController extends Controller
             ->update(['is_read' => true]);
 
         return view('transaction_chat', compact('transaction', 'wipTransactions', 'partner'));
+    }
+
+    // 取引画面チャット投稿
+    public function store(TransactionMessageRequest $request, Transaction $transaction)
+    {
+        $validated = $request->validated();
+        // 受信者（to_user_id）を決める
+        $toUserId = ($transaction->buyer_id === auth()->id())
+            ? $transaction->seller_id
+            : $transaction->buyer_id;
+
+        // 画像の保存
+        $imagePath = null;
+        if ($request->hasFile('image_path')) {
+            $imagePath = $request->file('image_path')->store(
+                'transaction_images',
+                'public'
+            );
+        }
+
+        // メッセージ保存
+        TransactionMessage::create([
+            'transaction_id' => $transaction->id,
+            'user_id'        => auth()->id(),
+            'to_user_id'     => $toUserId,
+            'body'           => $validated['body'],
+            'image_path'     => $imagePath,
+        ]);
+
+        return back();
     }
 }
