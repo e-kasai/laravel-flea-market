@@ -1,0 +1,218 @@
+/* ============================
+   全体レイアウト
+============================ */
+.transactions {
+    display: flex;
+    min-height: 100vh;
+    background: #f9f9f9;
+}
+
+/* ============================
+   左サイドバー
+============================ */
+.transactions-sidebar {
+    width: 260px;
+    background: #e5e5e5;
+    padding: 20px;
+}
+
+.transactions-sidebar__title {
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.transactions-sidebar__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.transactions-sidebar__item {
+    margin-bottom: 12px;
+}
+
+.transactions-sidebar__item.is-active .transactions-sidebar__link {
+    background: #fff;
+    border-left: 4px solid #ff7676;
+}
+
+.transactions-sidebar__link {
+    display: block;
+    padding: 10px;
+    background: #f0f0f0;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+}
+
+.transaction-sidebar__badge {
+    display: inline-block;
+    background: #ff5555;
+    color: #fff;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 10px;
+    margin-left: 8px;
+}
+
+/* ============================
+   右メインエリア
+============================ */
+.transactions-main {
+    flex: 1;
+    padding: 20px 30px;
+}
+
+/* 上部ヘッダー */
+.transactions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.transactions-header__title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.transactions-header__complete {
+    background: #ff9090;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* ============================
+   商品情報エリア
+============================ */
+.transactions-item {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.transactions-item__image img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 20px;
+}
+
+.transactions-item__name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.transactions-item__price {
+    margin-top: 6px;
+    font-size: 16px;
+}
+
+/* ============================
+   メッセージ一覧
+============================ */
+.transactions-messages {
+    margin-top: 25px;
+    margin-bottom: 100px; /* 下のフォームに埋もれないよう余白 */
+}
+
+/* メッセージ共通 */
+.transactions-message {
+    display: flex;
+    margin-bottom: 18px;
+    max-width: 70%;
+}
+
+.transactions-message__avatar-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ccc;
+    display: inline-block;
+}
+
+/* 自分のメッセージ */
+.transactions-message--me {
+    margin-left: auto;
+    flex-direction: row-reverse;
+}
+
+.transactions-message--me .transactions-message__body {
+    background: #d1f0ff;
+}
+
+/* 相手のメッセージ */
+.transactions-message--other .transactions-message__body {
+    background: #ffffff;
+}
+
+.transactions-message__body {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 0 10px;
+}
+
+.transactions-message__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+/* ============================
+   下部入力フォーム
+============================ */
+.transactions-input {
+    position: fixed;
+    bottom: 0;
+    left: 260px; /* サイドバー分 */
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding: 15px 25px;
+}
+
+.transactions-input__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.transactions-input__textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+.transactions-input__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transactions-input__image-button {
+    background: #eee;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.transactions-input__send {
+    background: #ff7676;
+    color: #fff;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
