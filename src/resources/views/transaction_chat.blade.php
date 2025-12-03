@@ -16,9 +16,9 @@
                         <a class="transactions-sidebar__link" href="{{ route("messages.show", $other->id) }}">
                             <div class="transactions-sidebar__text">
                                 <h2 class="transactions-sidebar__name">{{ $other->item->item_name }}</h2>
-                                {{-- @if (($other->unread_count ?? 0) > 0)
+                                @if (($other->unread_count ?? 0) > 0)
                                     <span class="transaction-sidebar__badge">{{ $other->unread_count }}</span>
-                                @endif --}}
+                                @endif
                             </div>
                         </a>
                     </li>
@@ -95,11 +95,16 @@
                                             編集
                                         </button>
                                     @endif
+
                                     {{-- 削除 --}}
                                     @if ($transaction->status === \App\Models\Transaction::STATUS_WIP && $message->user_id === auth()->id())
-                                        <form class="message-delete-form" method="POST" action="{{ route('messages.destroy', ['transaction' => $transaction->id, 'message' => $message->id]) }}">
+                                        <form
+                                            class="message-delete-form"
+                                            method="POST"
+                                            action="{{ route("messages.destroy", ["transaction" => $transaction->id, "message" => $message->id]) }}"
+                                        >
                                             @csrf
-                                            @method('DELETE')
+                                            @method("DELETE")
                                             <button type="submit" class="message-delete-btn">削除</button>
                                         </form>
                                     @endif
@@ -157,13 +162,12 @@
                     <textarea name="body" id="message-edit-body"></textarea>
                     <button type="submit">更新</button>
                 </form>
-
             </section>
         </section>
     </main>
 @endsection
 
-// 本文入力保持
+{{-- 本文入力保持 --}}
 @push("scripts")
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -175,8 +179,6 @@
             if (saved) {
                 textarea.value = saved;
             }
-
-
 
             // 入力するたびに保存
             textarea.addEventListener('input', () => {
