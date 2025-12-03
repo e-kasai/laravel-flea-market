@@ -8,8 +8,9 @@ use App\Http\Controllers\ExhibitController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\TransactionQueryController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\TransactionMessageController;
+use App\Http\Controllers\TransactionCompleteController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -102,11 +103,6 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
-
-//取引（Transaction）まわり
-Route::get('/transactions/{transaction}', [TransactionQueryController::class, 'show'])
-    ->middleware(['auth', 'verified'])->name('transactions.show');
-
 //取引メッセージ（Message）まわり
 Route::prefix('transactions/{transaction}/messages')->middleware(['auth', 'verified'])->group(function () {
 
@@ -127,3 +123,13 @@ Route::prefix('transactions/{transaction}/messages')->middleware(['auth', 'verif
         ->name('messages.destroy');
 });
 
+
+//取引完了
+Route::post('/transactions/{transaction}/complete', [TransactionCompleteController::class, 'complete'])
+    ->name('transactions.complete')
+    ->middleware(['auth', 'verified']);
+
+// ユーザー評価
+Route::post('/transactions/{transaction}/rating', [RatingController::class, 'store'])
+    ->name('rating.store')
+    ->middleware(['auth', 'verified']);
