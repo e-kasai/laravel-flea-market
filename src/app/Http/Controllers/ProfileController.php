@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use App\Models\Transaction;
+use App\Models\TransactionMessage;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,12 @@ class ProfileController extends Controller
                     $q->where('is_read', false)
                         ->where('to_user_id', $user->id);
                 }
-            ])
+            ])->orderByDesc(
+                TransactionMessage::select('created_at')
+                    ->whereColumn('transaction_id', 'transactions.id')
+                    ->latest()
+                    ->take(1)
+            )
             ->get();
 
         // $wipItems = $wipTransactions->pluck('item')->filter();
