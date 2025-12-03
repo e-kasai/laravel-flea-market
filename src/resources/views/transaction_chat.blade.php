@@ -33,14 +33,11 @@
                 <h1 class="transactions-header__title">「{{ $partner->name }}」さんとの取引画面</h1>
 
                 {{-- 取引完了ボタン（購入者のみ表示） --}}
-                @if (auth()->id() === $transaction->buyer_id)
-                    {{--
-                        <form method="POST" action="{{ route("transactions.complete", $transaction->id) }}">
+                @if (auth()->id() === $transaction->buyer_id && $transaction->status === \App\Models\Transaction::STATUS_WIP)
+                    <form method="POST" action="{{ route("transactions.complete", $transaction->id) }}">
                         @csrf
-                        @method("patch")
                         <button type="submit" class="transactions-header__complete">取引を完了する</button>
-                        </form>
-                    --}}
+                    </form>
                 @endif
             </header>
 
@@ -167,6 +164,46 @@
     </main>
 @endsection
 
+{{-- 取引完了後：評価モーダル --}}
+@if (session("openRatingModal"))
+    <div id="ratingModal" class="rating-modal">
+        <div class="rating-modal__overlay"></div>
+
+        <div class="rating-modal__content">
+            <h2 class="rating-modal__title">取引の評価をお願いします</h2>
+
+            <form method="POST" action="{{ route("rating.store", $transaction->id) }}">
+                @csrf
+
+                <div class="rating-modal__stars">
+                    <label>
+                        <input type="radio" name="score" value="1" />
+                        ★1
+                    </label>
+                    <label>
+                        <input type="radio" name="score" value="2" />
+                        ★2
+                    </label>
+                    <label>
+                        <input type="radio" name="score" value="3" />
+                        ★3
+                    </label>
+                    <label>
+                        <input type="radio" name="score" value="4" />
+                        ★4
+                    </label>
+                    <label>
+                        <input type="radio" name="score" value="5" />
+                        ★5
+                    </label>
+                </div>
+
+                <button class="rating-modal__submit" type="submit">評価を送信する</button>
+            </form>
+        </div>
+    </div>
+@endif
+
 {{-- 本文入力保持 --}}
 @push("scripts")
     <script>
@@ -209,4 +246,15 @@
             }
         });
     </script>
+
+    @if (session("openRatingModal"))
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const modal = document.getElementById('ratingModal');
+                if (modal) {
+                    modal.classList.add('is-active');
+                }
+            });
+        </script>
+    @endif
 @endpush
