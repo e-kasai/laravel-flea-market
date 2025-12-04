@@ -145,26 +145,25 @@
                     enctype="multipart/form-data"
                     class="transactions-input__form"
                 >
-                    @csrf
+                @csrf
+                <textarea
+                name="body"
+                class="transactions-input__textarea"
+                placeholder="取引メッセージを記入してください"
+                rows="2"
+                >{{ old('body') }}</textarea>
 
-                    <textarea
-                        name="body"
-                        class="transactions-input__textarea"
-                        placeholder="取引メッセージを記入してください"
-                        rows="2"
-                    >
-{{ old("body") }}</textarea
-                    >
-                    <div class="transactions-input__footer">
-                        <label class="transactions-input__image-button">
-                            画像を追加
-                            <input type="file" name="image_path" class="transactions-input__file" />
-                        </label>
+                <div class="transactions-input__footer">
+                    <label class="transactions-input__image-button">
+                        画像を追加
+                        <input type="file" name="image_path" class="transactions-input__file" />
+                    </label>
 
-                        <button type="submit" class="transactions-input__send">送信</button>
-                    </div>
+                    <button type="submit" class="transactions-input__send">
+                        <img class="send-icon" src="{{ asset('img/sendicon.jpg') }}" alt="送信" />
+                    </button>
+                </div>
                 </form>
-
 
                 {{-- 投稿後の編集用フォーム --}}
                 <form id="message-edit-form" method="POST" style="display: none">
