@@ -37,6 +37,10 @@ class Item extends Model
         return $this->belongsTo(User::class, 'seller_id');
     }
 
+    public function seller()
+    {
+        return $this->belongsTo(User::class, 'seller_id');
+    }
 
     public function comments()
     {
