@@ -51,12 +51,14 @@ class ProfileController extends Controller
             )
             ->get();
 
-        // $wipItems = $wipTransactions->pluck('item')->filter();
         $wipItems = $wipTransactions;
-
         $totalUnread = $wipTransactions->sum('unread_count');
 
-        return view('profile', compact('profile', 'user', 'items', 'purchasedItems', 'wipItems', 'wipTransactions', 'totalUnread'));
+        //評価の平均値
+        $averageRating = $user->ratingsReceived()->avg('score');
+        $averageRating = $averageRating ? round($averageRating) : null;
+
+        return view('profile', compact('profile', 'user', 'items', 'purchasedItems', 'wipItems', 'wipTransactions', 'totalUnread', 'averageRating'));
     }
 
     //プロフィール編集画面の表示

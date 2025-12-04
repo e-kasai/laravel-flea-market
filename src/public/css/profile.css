@@ -85,6 +85,17 @@
     margin-left: clamp(2rem, 4vw, 10rem);
 }
 
+/* 評価 */
+.profile-rating .star {
+    font-size: 22px;
+    color: #ccc;
+    margin-right: 2px;
+}
+
+.profile-rating .star--active {
+    color: #ffd700 !important;
+}
+
 /* プロフィールを編集リンク */
 .profile__link {
     flex: 0 0 auto;

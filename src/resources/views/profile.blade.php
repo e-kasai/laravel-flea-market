@@ -19,6 +19,17 @@
                 alt="プロフィール画像"
             />
             <h1 class="profile__name">{{ $user->name }}</h1>
+            @if ($averageRating)
+                <div class="profile-rating">
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $averageRating)
+                            <span class="star star--active">★</span>
+                        @else
+                            <span class="star">★</span>
+                        @endif
+                    @endfor
+                </div>
+            @endif
         </div>
         <div class="profile__link">
             <a class="profile__link-edit" href="{{ route("profile.edit") }}">プロフィールを編集</a>
