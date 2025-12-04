@@ -23,10 +23,9 @@ class TransactionMessageController extends Controller
             abort(403);
         }
 
-        // メイン取引（messages と item を読み込む）
         $transaction->load([
             'item',
-            'messages.user',
+            'messages.user.profile',
         ]);
 
         // サイドバー：ユーザーが関係する取引中一覧

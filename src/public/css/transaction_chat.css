@@ -1,5 +1,5 @@
 /* ============================
-   全体レイアウト
+全体レイアウト
 ============================ */
 .transactions {
     display: flex;
@@ -20,7 +20,7 @@
     font-size: 30px;
     font-weight: 400;
     color: #ffffff;
-    margin: 10px;
+    margin:0 0 50px 0;
     text-align: center;
 }
 
@@ -39,19 +39,22 @@
     border-left: 4px solid #ff7676;
 }
 
+/* その他の取引中アイテム */
 .transactions-sidebar__name {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 400;
     color: #000000;
+    text-align: center;
 }
 
 .transactions-sidebar__link {
+    max-width: 200px;
     display: block;
-    padding: 10px;
-    background: #eeefeb;
+    padding: 0 2px;
+    background: #EEEFEB;
     text-decoration: none;
-    color: #333;
-    border-radius: 4px;
+    margin:0 auto;
+    border-radius: 5px;
 }
 
 .transaction-sidebar__badge {
@@ -69,22 +72,25 @@
 ============================ */
 .transactions-main {
     flex: 1;
-    padding: 20px 30px;
+    /* padding: 20px 30px; */
 }
 
 /* 上部ヘッダー */
 .transactions-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    margin-bottom: 25px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 15px;
+    padding:10px 30px;
+}
+
+.avatar--header{
+    width:79px;
+    height:79px;
 }
 
 .transactions-header__title {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 36px;
+    font-weight: 700;
 }
 
 .transactions-header__complete {
@@ -99,38 +105,41 @@
 /* ============================
 商品情報エリア
 ============================ */
-.transactions-item {
+.transactions-item{
     display: flex;
     align-items: center;
-    background: #fff;
     padding: 15px;
     border-radius: 6px;
+        border-top:2px solid #5F5F5F;
+    border-bottom:2px solid #5F5F5F;
 }
 
+
 .transactions-item__image img {
-    width: 100px;
-    height: 100px;
+    width: 203px;
+    height: 206px;
     object-fit: cover;
-    border-radius: 6px;
     margin-right: 20px;
+    margin-left:15px;
 }
 
 .transactions-item__name {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 48px;
+    font-weight: 700;
+    color:#000000;
 }
 
 .transactions-item__price {
-    margin-top: 6px;
-    font-size: 16px;
+    font-size: 36px;
+    font-weight: 400px;
+    color:#000000;
 }
 
 /* ============================
 メッセージ一覧
 ============================ */
 .transactions-messages {
-    margin-top: 25px;
-    margin-bottom: 100px; /* 下のフォームに埋もれないよう余白 */
+    margin: 25px 30px 100px 30px;
 }
 
 /* メッセージ共通 */
@@ -140,12 +149,16 @@
     max-width: 70%;
 }
 
-.transactions-message__avatar-circle {
-    width: 40px;
-    height: 40px;
+.avatar {
     border-radius: 50%;
-    background: #ccc;
-    display: inline-block;
+    object-fit: cover;
+    display: block;
+    background: #D9D9D9;
+}
+.avatar--message {
+    width: 60px;
+    height: 60px;
+    /* display: inline-block; */
 }
 
 /* 自分のメッセージ */

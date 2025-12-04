@@ -30,6 +30,15 @@
         <section class="transactions-main">
             {{-- 上部ヘッダー --}}
             <header class="transactions-header">
+                <img
+                    class="avatar avatar--header"
+                    src="{{
+                        $partner->profile?->avatar_path
+                            ? asset("storage/" . $partner->profile->avatar_path)
+                            : asset("img/noimage.png")
+                    }}"
+                    alt="プロフィール画像"
+                />
                 <h1 class="transactions-header__title">「{{ $partner->name }}」さんとの取引画面</h1>
 
                 {{-- 取引完了ボタン（購入者のみ表示） --}}
@@ -61,7 +70,15 @@
                         <div class="transactions-message__profile">
                             {{-- プロフィール画像と名前 --}}
                             <span class="transactions-message__user">{{ $message->user->name }}</span>
-                            <span class="transactions-message__avatar-circle"></span>
+                            <img
+                                class="avatar avatar--message"
+                                src="{{
+                                    $message->user->profile?->avatar_path
+                                        ? asset("storage/" . $message->user->profile->avatar_path)
+                                        : asset("img/noimage.png")
+                                }}"
+                                alt="プロフィール画像"
+                            />
                         </div>
                         <div class="transactions-message__body">
                             {{-- 日時と本文 --}}
