@@ -165,6 +165,7 @@
 @endsection
 
 {{-- 取引完了後：評価モーダル --}}
+
 @if ($showBuyerModal || $showSellerModal)
     <div id="ratingModal" class="rating-modal">
         <div class="rating-modal__content">
