@@ -99,7 +99,7 @@
                                     {{-- 編集 --}}
                                     @if ($transaction->status === \App\Models\Transaction::STATUS_WIP && $message->user_id === auth()->id())
                                         <button
-                                            class="message-edit-btn"
+                                            class="action-btn message-edit-btn"
                                             data-update-url="{{ route("messages.update", ["transaction" => $transaction->id, "message" => $message->id]) }}"
                                         >
                                             編集
@@ -115,7 +115,7 @@
                                         >
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" class="message-delete-btn">削除</button>
+                                            <button type="submit" class="action-btn message-delete-btn">削除</button>
                                         </form>
                                     @endif
                                 </div>
@@ -129,7 +129,7 @@
             <section class="transactions-input">
                 {{-- エラー表示 --}}
                 @if ($errors->any())
-                    <div class="transactions-errors">
+                    <div class="transactions-error">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -164,6 +164,7 @@
                         <button type="submit" class="transactions-input__send">送信</button>
                     </div>
                 </form>
+
 
                 {{-- 投稿後の編集用フォーム --}}
                 <form id="message-edit-form" method="POST" style="display: none">

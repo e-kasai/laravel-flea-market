@@ -1,10 +1,11 @@
 /* ============================
 全体レイアウト
 ============================ */
+
 .transactions {
     display: flex;
     min-height: 100vh;
-    background: #f9f9f9;
+    height: auto;
 }
 
 /* ============================
@@ -72,8 +73,15 @@
 ============================ */
 .transactions-main {
     flex: 1;
-    /* padding: 20px 30px; */
 }
+
+/* .transactions-main {
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+} */
 
 /* 上部ヘッダー */
 .transactions-header {
@@ -137,25 +145,19 @@
 /* ============================
 メッセージ一覧
 ============================ */
-/* .transactions-message {
-    min-width:600px;
-    margin: 25px 30px 100px 30px;
-    max-width: 100%;
-    width: fit-content;
-} */
+/* メッセージ共通 */
+.transactions-message {
+    max-width: 1500px;
+    /* min-width: 600px; */
+    display: flex;
+    flex-direction: column;
+    margin: 25px 30px 30px 30px;
+    /* height:auto; */
+}
 
 .transactions-message__profile {
     display: flex;
     align-items: center;
-}
-
-/* メッセージ共通 */
-.transactions-message {
-    max-width: 1500px;
-    min-width: 600px;
-    display: flex;
-    flex-direction: column;
-    margin: 25px 30px 100px 30px;
 }
 
 .transactions-message__profile {
@@ -183,7 +185,7 @@
     max-width: 100%;
     width: auto;
     min-width: 0;
-    padding: 10px 50px;
+    padding: 5px 10px;
     border-radius: 4px;
     background-color: #d9d9d9;
     margin-top: 10px;
@@ -192,8 +194,11 @@
 .transactions-message__text {
     font-size: 20px;
     font-weight: 700;
+    text-align: left;
     color: #000000;
     background-color: #d9d9d9;
+    margin: 0;
+    padding: 5px;
 }
 
 /* 自分のメッセージ */
@@ -223,30 +228,50 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: 5px;
+}
+
+.action-btn {
+    font-size: 15px;
+    font-weight: 400;
+    color: #5f5f5f;
+    border: none;
+    background-color: #ffffff;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 /* ============================
 下部入力フォーム
 ============================ */
 .transactions-input {
-    position: fixed;
+    display: flex;
+    flex-direction: column;
     bottom: 0;
     left: 260px; /* サイドバー分 */
     right: 0;
     background: #fff;
-    border-top: 1px solid #ddd;
-    padding: 15px 25px;
+
+    padding: 5px 20px;
 }
+
+/* .transactions-input__form {
+    display: flex;
+    flex-direction: column;
+} */
 
 .transactions-input__form {
     display: flex;
-    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .transactions-input__textarea {
+    flex: 1;
+    min-height: 60px;
+
     width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
     padding: 10px;
     resize: vertical;
     margin-bottom: 10px;
