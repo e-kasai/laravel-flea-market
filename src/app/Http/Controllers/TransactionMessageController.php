@@ -136,4 +136,7 @@ class TransactionMessageController extends Controller
         $message->delete();
         return back()->with('message', 'メッセージを削除しました');;
     }
+
+
+    
 }

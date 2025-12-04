@@ -31,24 +31,24 @@ class RatingController extends Controller
 
         // 出品者
         if ($userId === $sellerId) {
-            if ($transaction->status !== Transaction::STATUS_COMPLETED) {
+            if ($transaction->status !== Transaction::STATUS_CONFIRMED) {
                 abort(403, '取引完了後に評価できます');
             }
 
-        // 購入者
+            // 購入者
         } elseif ($userId === $buyerId) {
-            if ($transaction->status !== Transaction::STATUS_COMPLETED) {
+            if ($transaction->status !== Transaction::STATUS_CONFIRMED) {
                 abort(403, '取引完了後に評価できます');
             }
 
-        // それ以外
+            // それ以外
         } else {
             abort(403, 'この取引の評価権限がありません');
         }
 
         // 購入者が完了ボタンを押して評価した場合、取引を完了させる
         if ($userId === $buyerId) {
-            $transaction->update(['status' => Transaction::STATUS_COMPLETED]);
+            $transaction->update(['status' => Transaction::STATUS_CONFIRMED]);
         }
 
 

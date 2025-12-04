@@ -32,7 +32,11 @@ class ProfileController extends Controller
             $query->where('buyer_id', $user->id)
                 ->orWhere('seller_id', $user->id);
         })
-            ->where('status', Transaction::STATUS_WIP)
+            // ->where('status', Transaction::STATUS_WIP)
+            ->whereIn('status', [
+                Transaction::STATUS_WIP,
+                Transaction::STATUS_CONFIRMED,
+            ])
             ->with('item')
             ->withCount([
                 'messages as unread_count' => function ($q) use ($user) {
