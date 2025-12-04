@@ -76,9 +76,12 @@ class TransactionMessageController extends Controller
             ->exists();
 
         // 購入者のモーダル表示条件
-        $showBuyerModal = !$buyerHasRated && $transaction->status === Transaction::STATUS_CONFIRMED;
+        $showBuyerModal = ($user->id === $buyerId)
+            && !$buyerHasRated
+            && $transaction->status === Transaction::STATUS_CONFIRMED;
+
         // 出品者のモーダル表示条件
-        $showSellerModal = $buyerHasRated && !$sellerHasRated;
+        $showSellerModal = ($user->id === $sellerId) && $buyerHasRated && !$sellerHasRated;
 
         return view('transaction_chat', compact('transaction', 'wipTransactions', 'partner', 'showBuyerModal', 'showSellerModal'));
     }
