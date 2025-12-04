@@ -8,18 +8,20 @@
 }
 
 /* ============================
-   左サイドバー
+左サイドバー
 ============================ */
 .transactions-sidebar {
     width: 260px;
-    background: #e5e5e5;
-    padding: 20px;
+    background: #868686;
+    padding: 10px;
 }
 
 .transactions-sidebar__title {
-    margin-bottom: 16px;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 30px;
+    font-weight: 400;
+    color: #ffffff;
+    margin: 10px;
+    text-align: center;
 }
 
 .transactions-sidebar__list {
@@ -37,10 +39,16 @@
     border-left: 4px solid #ff7676;
 }
 
+.transactions-sidebar__name {
+    font-size: 30px;
+    font-weight: 400;
+    color: #000000;
+}
+
 .transactions-sidebar__link {
     display: block;
     padding: 10px;
-    background: #f0f0f0;
+    background: #eeefeb;
     text-decoration: none;
     color: #333;
     border-radius: 4px;
@@ -57,7 +65,7 @@
 }
 
 /* ============================
-   右メインエリア
+右メインエリア
 ============================ */
 .transactions-main {
     flex: 1;
@@ -89,7 +97,7 @@
 }
 
 /* ============================
-   商品情報エリア
+商品情報エリア
 ============================ */
 .transactions-item {
     display: flex;
@@ -118,7 +126,7 @@
 }
 
 /* ============================
-   メッセージ一覧
+メッセージ一覧
 ============================ */
 .transactions-messages {
     margin-top: 25px;
@@ -169,7 +177,7 @@
 }
 
 /* ============================
-   下部入力フォーム
+下部入力フォーム
 ============================ */
 .transactions-input {
     position: fixed;
