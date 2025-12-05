@@ -30,20 +30,23 @@
         <section class="transactions-main">
             {{-- 上部ヘッダー --}}
             <header class="transactions-header">
-                <img class="avatar avatar--header"
-                    src="{{ $partner->profile?->avatar_path
-                        ? asset('storage/' . $partner->profile->avatar_path)
-                        : asset('img/noimage.png') }}"
-                    alt="プロフィール画像" />
-                <h1 class="transactions-header__title">「{{ $partner->name }}」さんとの取引画面</h1>
-
+                <div class="header-left">
+                    <img class="avatar avatar--header"
+                        src="{{ $partner->profile?->avatar_path
+                            ? asset('storage/' . $partner->profile->avatar_path)
+                            : asset('img/noimage.png') }}"
+                        alt="プロフィール画像" />
+                    <h1 class="transactions-header__title">「{{ $partner->name }}」さんとの取引画面</h1>
+                </div>
                 {{-- 取引完了ボタン（購入者のみ表示） --}}
-                @if (auth()->id() === $transaction->buyer_id && $transaction->status === \App\Models\Transaction::STATUS_WIP)
-                    <form method="POST" action="{{ route('transactions.complete', $transaction->id) }}">
-                        @csrf
-                        <button type="submit" class="transactions-header__complete">取引を完了する</button>
-                    </form>
-                @endif
+                <div class= "header-right">
+                    @if (auth()->id() === $transaction->buyer_id && $transaction->status === \App\Models\Transaction::STATUS_WIP)
+                        <form method="POST" action="{{ route('transactions.complete', $transaction->id) }}">
+                            @csrf
+                            <button type="submit" class="transactions-header__complete">取引を完了する</button>
+                        </form>
+                    @endif
+                </div>
             </header>
 
             {{-- 商品情報エリア --}}

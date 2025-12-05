@@ -2,10 +2,17 @@
 全体レイアウト
 ============================ */
 
-.transactions {
+/* .transactions {
     display: flex;
     min-height: 100vh;
     height: auto;
+} */
+
+.transactions {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
 }
 
 /* ============================
@@ -80,7 +87,15 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: clamp(0.6rem, 1vw, 1rem) clamp(2rem, 4vw, 3rem);
+    padding: clamp(1rem, 2vw, 2rem) clamp(2rem, 4vw, 3rem);
+}
+
+.header-left {
+    display: flex;
+}
+
+.header-right {
+    margin-left: auto;
 }
 
 .avatar--header {
@@ -118,8 +133,8 @@
 }
 
 .transactions-item__image img {
-    width: clamp(12rem, 20vw, 20.3rem);
-    height: clamp(12rem, 20vw, 20.6rem);
+    width: clamp(10rem, 20vw, 20.3rem);
+    height: clamp(10rem, 20vw, 20.6rem);
     object-fit: cover;
     margin-right: 2rem;
     margin-left: 1.5rem;
@@ -414,4 +429,182 @@
     font-size: 24px;
     font-weight: 400;
     margin: 18px 0 8px 450px;
+}
+
+/* ============================
+スマホ：〜767.98px
+============================ */
+
+@media screen and (max-width: 767.98px) {
+    /* rem 基準を縮小 → 1rem = 8px にする */
+    html {
+        font-size: 50%;
+    }
+
+    /* レイアウトを縦1カラムへ */
+    .transactions {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* サイドバーを上へ、横幅100% */
+    .transactions-sidebar {
+        width: 100%;
+        order: 1;
+        max-width: 100%;
+    }
+
+    .transactions-sidebar__title {
+        margin: 0;
+    }
+
+    .transactions-header {
+        flex-direction: column;
+    }
+
+    .transactions-header__complete {
+        margin: 0;
+    }
+
+    /* 本文をサイドバーの下へ */
+    .transactions-main {
+        width: 100%;
+        order: 2;
+    }
+
+    .transactions-input__footer {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .transactions-input__form {
+        flex-direction: column;
+        margin: 0;
+        gap: 2rem;
+    }
+
+    .transactions-input__textarea {
+        width: 100%;
+    }
+
+    .transactions-input__image-button {
+        margin-left: 150px;
+    }
+
+    .form-error ul {
+        margin: 0;
+    }
+}
+
+/* ============================
+タブレット：768〜1023.98px
+============================ */
+@media screen and (min-width: 768px) and (max-width: 1023.98px) {
+    /* レイアウトを縦1カラムへ */
+    .transactions {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* サイドバーを上へ、横幅100% */
+    .transactions-sidebar {
+        width: 100%;
+        order: 1;
+        max-width: 100%;
+    }
+
+    .transactions-sidebar__title {
+        margin: 0;
+    }
+
+    .transactions-header {
+        flex-direction: column;
+    }
+
+    .transactions-header__complete {
+        margin: 0;
+    }
+
+    /* 本文をサイドバーの下へ */
+    .transactions-main {
+        width: 100%;
+        order: 2;
+    }
+
+    .transactions-input__footer {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .transactions-input__form {
+        flex-direction: column;
+        margin: 0;
+        gap: 2rem;
+    }
+
+    .transactions-input__textarea {
+        width: 100%;
+    }
+
+    .transactions-input__image-button {
+        margin-left: 150px;
+    }
+
+    .form-error ul {
+        margin: 0;
+    }
+}
+
+/* ============================
+PC:1024〜1539.98px
+============================ */
+@media screen and (min-width: 1024px) and (max-width: 1539.98px) {
+    .transactions-sidebar__title {
+        margin: 0;
+    }
+
+    .transactions-header__complete {
+        margin: 0;
+    }
+
+    /* 本文をサイドバーの下へ */
+    .transactions-main {
+        width: 100%;
+        order: 2;
+    }
+
+    .transactions-input__footer {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .transactions-input__form {
+        flex-direction: column;
+        margin: 0;
+        gap: 2rem;
+    }
+
+    .transactions-input__textarea {
+        width: 100%;
+    }
+
+    .transactions-input__image-button {
+        margin-left: 150px;
+    }
+
+    .form-error ul {
+        margin: 0;
+    }
+}
+
+/* ============================
+ワイド:1540px～
+============================ */
+
+.transactions-header__title {
+    font-size: clamp(2rem, 2vw, 2.4rem);
+}
+
+.transactions-input__image-button {
+    font-size: clamp(1.4rem, 2vw, 1.6rem);
 }
