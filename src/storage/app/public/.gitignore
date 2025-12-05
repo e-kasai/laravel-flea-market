@@ -1,6 +1,8 @@
 *
 !material_images/
 !items/
+!transaction_images/
 !material_images/.gitkeep
 !items/.gitkeep
+!transaction_images/.gitkeep
 !.gitignore
