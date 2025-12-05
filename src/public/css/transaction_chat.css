@@ -1,13 +1,6 @@
 /* ============================
 全体レイアウト
 ============================ */
-
-/* .transactions {
-    display: flex;
-    min-height: 100vh;
-    height: auto;
-} */
-
 .transactions {
     display: flex;
     flex-wrap: wrap;
@@ -356,14 +349,13 @@
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center; /* 横の中央 */
-    align-items: center; /* 縦の中央 */
+    justify-content: center;
+    align-items: center;
 }
 
 /* モーダルの箱 */
 .rating-modal__content {
     background: #fdfce6;
-    /* padding: 24px 30px; */
     border-radius: 15px;
     border: 1px solid #000000;
     width: 600px;
@@ -494,13 +486,54 @@
     .form-error ul {
         margin: 0;
     }
+
+    /* モーダル全体 */
+    .rating-modal {
+        padding: 1.6rem;
+    }
+
+    /* モーダルの箱 */
+    .rating-modal__content {
+        width: 100%;
+        max-width: 32rem;
+    }
+
+    .rating-modal__title {
+        font-size: 2rem;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .rating-modal__text {
+        font-size: 1.4rem;
+        padding-left: 0;
+        text-align: center;
+        margin-bottom: 1.6rem;
+    }
+
+    /* 星のサイズ調整 */
+    .rating-modal__stars label {
+        font-size: 4rem;
+    }
+
+    .rating-modal__stars {
+        gap: 0.8rem;
+    }
+
+    /* ボタンを中央寄せに変更 */
+    .rating-modal__submit {
+        width: 12rem;
+        height: 4rem;
+        font-size: 1.6rem;
+        margin: 1.6rem auto 0 auto;
+        display: block;
+    }
 }
 
 /* ============================
 タブレット：768〜1023.98px
 ============================ */
 @media screen and (min-width: 768px) and (max-width: 1023.98px) {
-    /* レイアウトを縦1カラムへ */
     .transactions {
         display: flex;
         flex-direction: column;
@@ -552,6 +585,49 @@
 
     .form-error ul {
         margin: 0;
+    }
+
+    /* モーダル全体 */
+    .rating-modal {
+        padding: 2rem;
+    }
+
+    /* モーダルの箱 */
+    .rating-modal__content {
+        width: 100%;
+        max-width: 48rem;
+        border-radius: 1.2rem;
+    }
+
+    /* タイトル */
+    .rating-modal__title {
+        font-size: 2.4rem;
+        padding-left: 2rem;
+    }
+
+    /* テキスト */
+    .rating-modal__text {
+        font-size: 1.6rem;
+        padding-left: 2rem;
+        margin-bottom: 1.6rem;
+    }
+
+    /* 星 */
+    .rating-modal__stars label {
+        font-size: 6rem;
+    }
+
+    .rating-modal__stars {
+        gap: 1rem;
+    }
+
+    /* 送信ボタン */
+    .rating-modal__submit {
+        width: 14rem;
+        height: 4.4rem;
+        font-size: 1.8rem;
+        margin: 2rem 2rem 0 auto;
+        display: block;
     }
 }
 
