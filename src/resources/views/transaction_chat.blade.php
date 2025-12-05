@@ -16,9 +16,6 @@
                         <a class="transactions-sidebar__link" href="{{ route('messages.show', $other->id) }}">
                             <div class="transactions-sidebar__text">
                                 <h2 class="transactions-sidebar__name">{{ $other->item->item_name }}</h2>
-                                @if (($other->unread_count ?? 0) > 0)
-                                    <span class="transaction-sidebar__badge">{{ $other->unread_count }}</span>
-                                @endif
                             </div>
                         </a>
                     </li>
@@ -124,6 +121,18 @@
                     </div>
                 @endif
 
+                {{-- 投稿後の編集用フォーム --}}
+                <form id="message-edit-form" method="POST" style="display: none" enctype="multipart/form-data"
+                    class="transactions-input__form">
+                    @csrf
+                    @method('PUT')
+                    <p class="message-edit__form--text">メッセージ編集用フォーム</p>
+                    <div class="transactions-input__footer">
+                        <textarea name="body" id="message-edit-body" class="transactions-input__textarea"></textarea>
+                        <button class="transactions-input__edit" type="submit">更新</button>
+                    </div>
+                </form>
+
                 {{-- 新規投稿時のフォーム --}}
                 <form method="POST" action="{{ route('messages.store', $transaction->id) }}" enctype="multipart/form-data"
                     class="transactions-input__form">
@@ -142,17 +151,7 @@
                     </div>
                 </form>
 
-                {{-- 投稿後の編集用フォーム --}}
-                <form id="message-edit-form" method="POST" style="display: none" enctype="multipart/form-data"
-                    class="transactions-input__form">
-                    @csrf
-                    @method('PUT')
-                    <p class="message-edit__form--text">メッセージ編集用フォーム</p>
-                    <div class="transactions-input__footer">
-                        <textarea name="body" id="message-edit-body" class="transactions-input__textarea"></textarea>
-                        <button class="transactions-input__edit" type="submit">更新</button>
-                    </div>
-                </form>
+
             </section>
         </section>
     </main>
