@@ -1,6 +1,6 @@
 /* タブ帯（上下の線だけ全幅） */
 .tabs {
-    border-bottom: 2px solid #5f5f5f; /* 下線で区切り */
+    border-bottom: 2px solid #5f5f5f;
     margin-bottom: clamp(2.5rem, 3vw, 5rem);
 }
 
@@ -8,9 +8,7 @@
 .tabs__nav {
     display: flex;
     gap: clamp(3rem, 6vw, 15rem);
-    /* padding: clamp(0rem, 0.5vh, 0.8rem) clamp(1rem, 1vw, 5rem); */
     margin-top: clamp(0.4rem, 4vh, 6rem);
-    /* margin-left: clamp(2rem, 10vw, 30rem); */
     padding-left: 200px;
     border-bottom: 2px solid #5f5f5f;
 }
@@ -41,6 +39,28 @@
 }
 
 /* 未読数バッジ */
-.tabs__badge{
-    background-color: #FF0000;
+.tabs__badge {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 2.2rem;
+    height: 2.2rem;
+    padding: clamp(0.8rem, 2vw, 1.6rem) clamp(0.6rem, 1.5vw, 1.2rem);
+    font-size: clamp(1rem, 2vw, 2.4rem);
+    font-weight: 700;
+    color: #fff;
+    background: #ff0000;
+    border-radius: 50%;
+    line-height: 1;
+}
+
+/* ============================
+スマホ：〜767.98px
+============================ */
+@media screen and (max-width: 767.98px) {
+    .tabs__nav {
+        padding-left: 20px;
+        align-items: center;
+        border-bottom: 1px solid #5f5f5f;
+    }
 }
