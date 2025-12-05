@@ -112,7 +112,7 @@
             <section class="transactions-input">
                 {{-- エラー表示 --}}
                 @if ($errors->any())
-                    <div class="transactions-error">
+                    <div class="form-error">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
