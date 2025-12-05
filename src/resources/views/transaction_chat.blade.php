@@ -137,7 +137,8 @@
                 <form method="POST" action="{{ route('messages.store', $transaction->id) }}" enctype="multipart/form-data"
                     class="transactions-input__form">
                     @csrf
-                    <textarea name="body" class="transactions-input__textarea" placeholder="取引メッセージを記入してください" rows="2">{{ old('body') }}</textarea>
+                    <textarea id="new-message-body" name="body" class="transactions-input__textarea" placeholder="取引メッセージを記入してください"
+                        rows="2">{{ old('body') }}</textarea>
 
                     <div class="transactions-input__footer">
                         <label class="transactions-input__image-button">
@@ -194,7 +195,8 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const textarea = document.querySelector('textarea[name="body"]');
+            const textarea = document.getElementById('new-message-body');
+            if (!textarea) return;
             const key = 'transaction_draft_{{ $transaction->id }}';
 
             // ページ表示時：localStorage に残っている下書きをセット
