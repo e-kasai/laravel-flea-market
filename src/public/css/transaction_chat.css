@@ -163,7 +163,7 @@
 .transactions-message {
     display: flex;
     flex-direction: column;
-    max-width: 70%;
+    max-width: 40%;
     margin-bottom: 1.5rem;
 }
 
@@ -291,6 +291,7 @@
     font-size: clamp(1.4rem, 2vw, 2rem);
     font-weight: 700;
     color: #7b7b7b;
+    margin-top: 0.5rem;
 }
 
 .transactions-input__footer {
@@ -351,6 +352,7 @@
 
 .message-edit__form--text {
     font-size: clamp(1.4rem, 2vw, 2rem);
+    margin: 0px;
 }
 
 /* ============================
