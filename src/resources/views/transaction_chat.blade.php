@@ -138,23 +138,8 @@
                         </button>
                     </div>
                 </form>
+
                 {{-- 投稿後の編集用フォーム --}}
-                {{-- <p>メッセージ編集用フォーム</p>
-                <form id="message-edit-form" method="POST" style="display: none" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-
-                    <div class="transactions-input__form">
-                        <textarea name="body" id="message-edit-body" class="transactions-input__textarea"></textarea>
-                    </div>
-                    <div class="transactions-input__footer">
-                        <button class="transactions-input__edit" type="submit">更新</button>
-                    </div>
-                </form> --}}
-
-
-                {{-- 編集用フォーム --}}
-
                 <form id="message-edit-form" method="POST" style="display: none" enctype="multipart/form-data"
                     class="transactions-input__form">
                     @csrf
@@ -165,16 +150,12 @@
                         <button class="transactions-input__edit" type="submit">更新</button>
                     </div>
                 </form>
-
-
-
             </section>
         </section>
     </main>
 @endsection
 
-{{-- 取引完了後：評価モーダル --}}
-
+{{-- 評価モーダル --}}
 @if ($showBuyerModal || $showSellerModal)
     <div id="ratingModal" class="rating-modal">
         <div class="rating-modal__content">

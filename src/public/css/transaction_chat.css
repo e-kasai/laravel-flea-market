@@ -102,11 +102,14 @@
 }
 
 .transactions-header__complete {
-    background: #ff9090;
+    background: #ff8282;
     border: none;
-    padding: 8px 14px;
-    border-radius: 20px;
-    color: #fff;
+    padding: 10px 14px;
+    margin-left: 700px;
+    border-radius: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
     cursor: pointer;
 }
 
@@ -201,6 +204,16 @@
     padding: 5px;
 }
 
+.transactions-message__image {
+    max-width: 250px;
+    max-height: 250px;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    object-fit: contain;
+}
+
 /* 自分のメッセージ */
 .transactions-message--me {
     margin-left: auto;
@@ -267,6 +280,10 @@
     border-radius: 4px;
     padding: 10px;
     resize: vertical;
+
+    font-size: 20px;
+    font-weight: 700;
+    color: #7b7b7b;
 }
 
 .transactions-input__footer {
@@ -326,10 +343,8 @@
     display: inline-block;
 }
 
-
-.message-edit__form--text{
+.message-edit__form--text {
     font-size: 20px;
-
 }
 
 /* ============================
