@@ -76,10 +76,12 @@ HEADER
     background-color: black;
 }
 
-.header__logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.header__link {
+    font-size: 60px;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 0.03em;
 }
 
 .logo-image {
@@ -170,7 +172,7 @@ HEADER
         min-height: clamp(6rem, 12vh, 10rem);
     }
 
-    .header__logo {
+    .header__link {
         grid-column: 1;
         grid-row: 1;
     }

@@ -1,6 +1,6 @@
 <header class="header">
-    <a class="header__logo" href="{{ route('items.index') }}">
-        <img class="logo-image" src="{{ asset('img/logo.svg') }}" alt="No Image" />
+    <a class="header__link" href="{{ route('items.index') }}">
+        FleaMarket
     </a>
     @if (!Route::is('messages.show'))
         @unless (request()->routeIs('login', 'register.*', 'verification.*'))
