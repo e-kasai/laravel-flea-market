@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Profile;
+use App\Models\Transaction;
+use App\Models\Rating;
 
 class PurchaseTest extends TestCase
 {
@@ -121,10 +123,32 @@ class PurchaseTest extends TestCase
             'shipping_address'     => '東京都テスト区1-2-3',
         ]);
 
+        // 双方の評価が完了した前提
+        $transaction = Transaction::first();
+        $this->post(route('transactions.complete', $transaction));
+        Rating::create([
+            'transaction_id' => $transaction->id,
+            'from_user_id' => $buyer->id,
+            'to_user_id' => $seller->id,
+            'score' => 3
+        ]);
+
+        Rating::create([
+            'transaction_id' => $transaction->id,
+            'from_user_id' => $seller->id,
+            'to_user_id' => $buyer->id,
+            'score' => 3
+        ]);
+
+        $transaction->update([
+            'status' => Transaction::STATUS_COMPLETED
+        ]);
+
+
         // プロフィールの購入した商品一覧タブを開く
         $response = $this->actingAs($buyer)->get('/mypage?page=buy');
 
         // 期待: 購入した商品名が購入した標品一覧ページに追加されている
-        $response->assertSeeText('HDD');
+        $response->assertSee('HDD');
     }
 }
